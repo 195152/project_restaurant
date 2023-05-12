@@ -1,0 +1,22 @@
+<p>commande works!</p>
+
+
+<form [formGroup]="form"(submit)="addcommande()">
+
+    <h1 class="h3 mb-3 fw-normal">Please Register</h1>
+     <input formControlName="nom"  class="form-control"  placeholder="Nom" required >
+  
+      <input formControlName="email" type="email" class="form-control"  placeholder="Email" required >
+     
+
+
+      <input formControlName="nomproduit"  class="form-control"  placeholder="Nom" required >
+  
+      <input formControlName="prix"  class="form-control"  placeholder="Prix" required >
+     
+    
+      
+      
+      <button type="submit" class="w-100 btn btn-lg btn-primary">Submit</button>
+
+  </form>

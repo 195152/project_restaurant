@@ -1,0 +1,11 @@
+<form [formGroup]="form" (ngSubmit)="AddProduit()">
+
+    <h1 class="h3 mb-3 fw-normal">Please add produit</h1>
+     <input formControlName="nom"  class="form-control"  placeholder="Nom" required >
+  
+      <input formControlName="prix"  class="form-control"  placeholder="prix" required >
+     
+      
+      <button type="submit" class="w-100 btn btn-lg btn-primary">Submit</button>
+
+  </form>

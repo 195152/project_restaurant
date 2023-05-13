@@ -3,10 +3,9 @@ const Commande = db.Commande;
 const User = db.User;
 const Produit = db.Produit;
 const CommandProduct = db.CommandProduct;
-
 exports.addProductToCommand = async function (req, res) {
   
-  const { commande_id, idproduit, quantity } = req.body;
+  const { commande_id, idproduit, quantity, iduser } = req.body;
 
   const commandProduct = await CommandProduct.create({
     quantity: quantity,
@@ -16,7 +15,7 @@ exports.addProductToCommand = async function (req, res) {
   if (!commande) {
     return res.status(404).json({ error: 'Commande not found' });
   }
-  console.log("s");
+
   const produit = await Produit.findByPk(idproduit);
   if (!produit) {
     return res.status(404).json({ error: 'Produit not found' });
@@ -26,8 +25,17 @@ exports.addProductToCommand = async function (req, res) {
     through: commandProduct,
   });
 
+  const user = await User.findByPk(iduser);
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  await commande.setUser(user);
+
   return res.json(commandProduct);
 }
+
+
 
 
 exports.getOrdersForUser = async function (req, res) {
@@ -125,31 +133,49 @@ exports.getCommandes = async function (req, res) {
           model: Produit,
           attributes: ['nom', 'prix'],
           through: {
-            attributes: ['quantity'],
+            model: CommandProduct
           },
+        },
+        
+      
+      
+        {
+          model: User,
+          attributes: ['nom', 'email'],
         },
       ],
     });
+    
 
-    const commandesWithTotal = commandes.map(commande => {
-      const produits = commande.produits.map(produit => {
-        return {
-          nom: produit.nom,
-          prix: produit.prix,
-          quantity: produit.command_product.quantity,
-          total: produit.prix * produit.command_product.quantity,
-        };
-      });
-      const total = produits.reduce((sum, produit) => sum + produit.total, 0);
+    const promises = commandes.map(async (commande) => {
+      const { commande_id, iduser, createdAt, updatedAt, produits, user } = commande;
+
+      const produitsWithTotal = await Promise.all(
+        produits.map(async (produit) => {
+          const { nom, prix, command_product } = produit;
+          const quantity = command_product.quantity;
+          const total = (prix * quantity).toFixed(2);
+          return { nom, prix, quantity, total };
+        })
+      );
+
+      const total = produitsWithTotal.reduce(
+        (sum, produit) => sum + parseFloat(produit.total),
+        0
+      );
+
       return {
-        id: commande.commande_id,
-        user_id: commande.iduser,
-        createdAt: commande.createdAt,
-        updatedAt: commande.updatedAt,
-        produits,
-        total,
+        id: commande_id,
+        user_id: iduser,
+        createdAt,
+        updatedAt,
+        user: ` ${user.nom}${user.email}`,
+        produits: produitsWithTotal,
+        total: total.toFixed(2),
       };
     });
+
+    const commandesWithTotal = await Promise.all(promises);
 
     return res.json(commandesWithTotal);
   } catch (err) {
@@ -157,25 +183,3 @@ exports.getCommandes = async function (req, res) {
     return res.status(500).json({ error: 'Something went wrong' });
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

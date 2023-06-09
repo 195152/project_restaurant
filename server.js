@@ -21,15 +21,17 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 });
-const corsOptions = {
-    origin: 'http://localhost:4200',
-    optionsSuccessStatus: 200,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-};
+// const corsOptions = {
+//     origin: 'http://localhost:4200',
+//     optionsSuccessStatus: 200,
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type', 'Authorization'],
+// };
   
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
+
 router = require('./routes');
 app.use('/',router);
 

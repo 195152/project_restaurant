@@ -1,0 +1,56 @@
+.background {
+  background-image: url('/assets/background.jpg');
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin ion-input {
+  position: relative;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-signin ion-input:focus {
+  z-index: 2;
+}
+
+.form-signin ion-input[type='nom'] {
+  margin-bottom: -1px;
+  --border-bottom-right-radius: 0;
+  --border-bottom-left-radius: 0;
+}
+
+.form-signin ion-input[type='email'] {
+  margin-bottom: -1px;
+  --border-bottom-right-radius: 0;
+  --border-bottom-left-radius: 0;
+}
+
+.form-signin ion-input[type='password'] {
+  margin-bottom: 10px;
+  --border-top-left-radius: 0;
+  --border-top-right-radius: 0;
+}
+
+.form-signin ion-input[type='prix'] {
+  margin-bottom: 10px;
+  --border-top-left-radius: 0;
+  --border-top-right-radius: 0;
+}
+
+.form-signin ion-input[type='status'] {
+  margin-bottom: 10px;
+  --border-top-left-radius: 0;
+  --border-top-right-radius: 0;
+}

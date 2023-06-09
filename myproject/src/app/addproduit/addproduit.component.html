@@ -1,11 +1,40 @@
-<form [formGroup]="form" (ngSubmit)="AddProduit()">
+<div class="position-absolute top-50 start-50 translate-middle">
+  <form [formGroup]="form" (submit)="AddProduit()" id="form">
+    <div class="grid gap-0 row-gap-3">
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="text-secondary card-title">Please add produit</h5>
+          <div class="p-2 g-col-2">
+            <input
+              formControlName="nom"
+              class="form-control"
+              placeholder="Nom"
+              required />
+          </div>
 
-    <h1 class="h3 mb-3 fw-normal">Please add produit</h1>
-     <input formControlName="nom"  class="form-control"  placeholder="Nom" required >
-  
-      <input formControlName="prix"  class="form-control"  placeholder="prix" required >
-     
-      
-      <button type="submit" class="w-100 btn btn-lg btn-primary">Submit</button>
-
+          <div class="p-2 g-col-6">
+            <input
+              formControlName="prix"
+              class="form-control"
+              placeholder="prix"
+              required />
+          </div>
+          <div class="p-2 g-col-6">
+            <textarea
+              required
+              formControlName="description"
+              class="form-control"
+              placeholder="description"
+              id="floatingTextarea"></textarea>
+          </div>
+        </div>
+        <div class="p-2 g-col-6">
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            <i class="bi bi-plus-circle"></i> add
+          </button>
+        </div>
+      </div>
+      <div class="p-2 g-col-6"><h1 class="h3 mb-3 fw-normal"></h1></div>
+    </div>
   </form>
+</div>

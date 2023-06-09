@@ -9,7 +9,7 @@ const Produit = db.define('produit', {
     },
     nom: { type: Sequelize.STRING },
     prix: { type: Sequelize.STRING},
-   
+    description: {type: Sequelize.STRING},
     createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

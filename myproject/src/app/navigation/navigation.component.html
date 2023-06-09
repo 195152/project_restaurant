@@ -1,40 +1,66 @@
-<nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a routerLink="/" class="navbar-brand">Home</a>
-      </div>
-  
-      <div class="collapse navbar-collapse" id="navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a routerLink = "/login">Login</a></li>
-          <li><a routerLink = "/register">Register</a></li>
-          <li><a routerLink = "/produit">Produit</a></li>
-          <li><a routerLink = "/commande">Commande</a></li>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-2">
+      <img
+        src="assets/food.png"
+        height="45"
+        alt=""
+        loading="lazy"
+        style="margin-top: -1px" />
+    </a>
+
+    <!-- Toggle button -->
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">NowFood</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+
+      <div class="d-flex align-items-center">
+        <ul *ngIf="!user" class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" href="javascript:void(0)"
+              ><i class="bi bi-box-arrow-in-right"></i> Login</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register" href="javascript:void(0)"
+              ><i class="bi bi-door-open"></i> Register</a
+            >
+          </li>
+        </ul>
+        <ul *ngIf="user" class="navbar-nav me-auto">
+          <li *ngIf="user.role == 'admin'" class="nav-item">
+            <a class="nav-link" routerLink="/login" href="javascript:void(0)">
+              <i class="bi bi-plus-circle"></i> Add Products
+            </a>
+          </li>
+          <li *ngIf="user.role == 'regularUser'" class="nav-item">
+            <a class="nav-link" href="javascript:void(0)"
+              ><i class="bi bi-person"></i>{{ user.name }}</a
+            >
+          </li>
+          <li class="nav-item">
+            <button
+              type="button"
+              class="bi bi-box-arrow-left"
+              (click)="disconnect()">
+              disconnect
+            </button>
+          </li>
         </ul>
       </div>
     </div>
-  </nav>
-<!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Home</a>
-     
-      <div>
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link active " aria-current="page" href="#">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active " aria-current="page" href="#">Register</a>
-          </li>
-          
-        </ul>
-        
-      </div>
-    </div>
-  </nav> -->
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="assets/food.png" height="45" alt="" loading="lazy" style="margin-top: -1px" />
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-button fill="clear" expand="full" routerLink="/home">NowFood</ion-button>
+    </ion-col>
+    <ion-col *ngIf="!user" class="ion-text-end">
+      <ion-button fill="clear" expand="full" routerLink="/login">
+        <ion-icon name="log-in-outline"></ion-icon> Login
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="!user" class="ion-text-end">
+      <ion-button fill="clear" expand="full" routerLink="/register">
+        <ion-icon name="person-add-outline"></ion-icon> Register
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="user" class="ion-text-end">
+      <ion-button fill="clear" expand="full" routerLink="/login" *ngIf="user.role == 'admin'">
+        <ion-icon name="add-outline"></ion-icon> Add Products
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="user" class="ion-text-end">
+      <ion-button fill="clear" expand="full">
+        <ion-icon name="person-outline"></ion-icon> {{ user.name }}
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="user" class="ion-text-end">
+      <ion-button fill="clear" expand="full" (click)="disconnect()">
+        <ion-icon name="log-out-outline"></ion-icon> Disconnect
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

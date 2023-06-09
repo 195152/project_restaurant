@@ -1,0 +1,39 @@
+<ion-content>
+  <ion-grid class="ion-padding">
+    <form [formGroup]="form" (ngSubmit)="AddProduit()" id="form">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Please add produit</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="floating">Nom</ion-label>
+            <ion-input formControlName="nom" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Prix</ion-label>
+            <ion-input formControlName="prix" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea formControlName="description" required></ion-textarea>
+          </ion-item>
+        </ion-card-content>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="full" type="submit">
+              <ion-icon name="add-circle"></ion-icon> Add
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-row>
+        <ion-col>
+          <h1 class="ion-text-center ion-margin-top"></h1>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

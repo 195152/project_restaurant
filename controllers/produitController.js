@@ -2,9 +2,8 @@ const db = require('../models/index');
 const Produit = db.Produit;
 
 exports.produitList = async function (req, res) {
-    await Produit.findAll({ attributes: ['idproduit','nom', 'prix'] })
+    await Produit.findAll()
         .then(data => {
-            console.log("All produits:", JSON.stringify(data, null, 2));
             res.json(data);
         })
         .catch(err => {
@@ -12,10 +11,9 @@ exports.produitList = async function (req, res) {
         })
 }
 exports.produitCreate = async function (req, res) {
-    let produit= Produit.build({ nom: req.body.nom, prix: req.body.prix})
+    let produit= Produit.build({ nom: req.body.nom, prix: req.body.prix, description: req.body.description})
     await produit.save()
         .then(data => {
-            console.log(produit.toJSON());
             res.json(data);
         })
         .catch(err => {
@@ -24,7 +22,7 @@ exports.produitCreate = async function (req, res) {
     // or user.create in one time
 }
 
-exports.produitUpdate = async function (req, res) {
+/*exports.produitUpdate = async function (req, res) {
     if (req.params.idproduit > 0) {
         await Produit.update(
             { nom: req.body.nom, prix: req.body.prix },
@@ -38,7 +36,7 @@ exports.produitUpdate = async function (req, res) {
             })
     }
     else res.status(400).json({ message: 'produit not found' })
-}
+}*/
 
 exports.produitDelete = async function (req, res) {
     if (req.params.idproduit) {

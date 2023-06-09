@@ -1,0 +1,29 @@
+<ion-content>
+  <ion-grid class="ion-padding">
+    <p>commande works!</p>
+
+    <form [formGroup]="form" (ngSubmit)="addcommande()">
+      <ion-item>
+        <ion-label position="floating">Nom</ion-label>
+        <ion-input formControlName="nom" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input formControlName="email" type="email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Nom Produit</ion-label>
+        <ion-input formControlName="nomproduit" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Prix</ion-label>
+        <ion-input formControlName="prix" required></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" type="submit">Submit</ion-button>
+    </form>
+  </ion-grid>
+</ion-content>

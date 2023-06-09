@@ -2,52 +2,53 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-
+import { AuthService } from '../services/auth.service';
+import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   form!: FormGroup;
-  
+  alertPlaceholder: HTMLElement | any;
   constructor(
-    private cookieService: CookieService,
+    private AuthService: AuthService,
     private formBuilder: FormBuilder,
-    private http:HttpClient,//to register a new user if i click on submit
-    private router:Router
-    ){
-    
-  }
-  ngOnInit(): void{
+    private http: HttpClient, //to register a new user if i click on submit
+    private router: Router
+  ) {}
+  ngOnInit(): void {
     this.form = this.formBuilder.group({
-      
-      email:'',
-      password:''
-      
-    })
+      email: '',
+      password: '',
+    });
+    if (this.AuthService.userValue) {
+      this.router.navigate(['']);
+    }
   }
   submit(): void {
-    this.http.post('http://localhost:3008/api/login', this.form.getRawValue(), { withCredentials: true })
-      .subscribe(
-        (response: any) => {
-          console.log('Login successful!');
-          // set the token as a cookie
-          const expires = new Date();
-          expires.setDate(expires.getDate() + 1);
-          
-          
-          this.cookieService.set('token', response.token, expires, 'localhost:4200', undefined, true, 'Strict');
-          console.log(this.cookieService.get('token'));
-          this.router.navigate(['/']);
+    this.AuthService.login(this.form.value)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.router.navigate(['']);
         },
-        (error) => {
-          console.error('An error occurred during login:', error);
-          // Display error message to user
-        }
-      );
-  
+        error: error => {
+          console.log(error);
+          this.alertPlaceholder = document.getElementById('alertparent');
+          const appendAlert = (message: any, type: any) => {
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = [
+              `<div id="alert01" class="alert alert-warning alert-dismissible" role="alert">`,
+              `   <div>${message}</div>`,
+              '   <button type="button" class="btn-close" onclick="remove()" data-bs-dismiss="alert" aria-label="Close"></button>',
+              '</div>',
+            ].join('');
+            this.alertPlaceholder.append(wrapper);
+          };
+          appendAlert(error.error.message, 'success');
+        },
+      });
   }
 }
-//(()=>this.router.navigate(['/login']))

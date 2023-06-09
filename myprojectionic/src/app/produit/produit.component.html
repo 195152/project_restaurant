@@ -1,0 +1,9 @@
+<ion-row class="ion-align-items-stretch">
+  <ion-col size="4" size-md="4" *ngFor="let produit of produits">
+    <ion-card>
+      <!--Card image-->
+      <!-- Assuming the 'app-prod-card' component represents the card content -->
+      <app-prod-card [produit]="produit"></app-prod-card>
+    </ion-card>
+  </ion-col>
+</ion-row>

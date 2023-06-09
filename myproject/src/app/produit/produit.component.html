@@ -1,35 +1,8 @@
-<p>register works!</p>
-<!-- [formGroup]="form"(submit)="submit()" -->
-<!-- <form (submit)="add()">
-
-    <h1 >Gestion des produits</h1>
-
-      
-      <button type="submit" class="w-100 btn btn-lg btn-primary">Add</button>
-
-  </form> -->
-  <h1>Gestion des produits</h1>
-
-<button type="button" class="btn btn-primary" (click)="add()">Add</button>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Prix</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let produit of produits">
-      <td>{{ produit.nom }}</td>
-      <td>{{ produit.prix }}</td>
-      <td>
-        <button type="button" class="btn btn-danger" (click)="delete(produit.idproduit)">Delete</button> <!-- Add a delete button for each produit -->
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+<div class="row row-cols-3 row-cols-md-3">
+  <!-- Card -->
+  <div *ngFor="let produit of produits">
+    <app-prod-card [produit]="produit"></app-prod-card>
+    <!--Card image-->
+  </div>
+  <!-- Card -->
+</div>

@@ -1,15 +1,13 @@
-
 // import { HttpClient } from '@angular/common/http';
 // import { Component, OnInit } from '@angular/core';
 // import { FormBuilder, FormGroup } from '@angular/forms';
 // import { Router } from '@angular/router';
 
-
 // interface Produit {
- 
+
 //   nom: string;
 //   prix: number;
-  
+
 // }
 
 // @Component({
@@ -37,16 +35,13 @@
 //   add(): void {
 //     this.router.navigate(['/addproduit']);
 //   }
-  
 
 // }
-
-
-
 
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 interface Produit {
   idproduit: number;
@@ -57,24 +52,29 @@ interface Produit {
 @Component({
   selector: 'app-produit',
   templateUrl: './produit.component.html',
-  styleUrls: ['./produit.component.css']
+  styleUrls: ['./produit.component.css'],
 })
 export class ProduitComponent implements OnInit {
-
   produits: Produit[] = [];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private AuthService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.loadProduits();
+    if (this.AuthService.userValue) {
+      this.loadProduits();
+    } else this.router.navigate(['']);
   }
 
   loadProduits(): void {
     this.http.get<Produit[]>('http://localhost:3008/produits').subscribe(
-      (response) => {
+      response => {
         this.produits = response;
       },
-      (error) => {
+      error => {
         console.error('An error occurred while fetching the products:', error);
       }
     );
@@ -86,12 +86,11 @@ export class ProduitComponent implements OnInit {
 
   delete(idproduit: number) {
     if (confirm('Are you sure you want to delete this product?')) {
-      this.http.delete(`http://localhost:3008/produit/${idproduit}`).subscribe(() => {
-        this.loadProduits();
-      });
+      this.http
+        .delete(`http://localhost:3008/produit/${idproduit}`)
+        .subscribe(() => {
+          this.loadProduits();
+        });
     }
   }
-  
-
 }
-

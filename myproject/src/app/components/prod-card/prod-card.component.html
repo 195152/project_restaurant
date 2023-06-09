@@ -1,0 +1,56 @@
+<div class="col p-2">
+  <!-- Card -->
+  <div class="card h-100">
+    <!--Card image-->
+    <div class="view overlay">
+      <img
+        class="card-img-top"
+        src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1"
+        alt="Card image cap" />
+      <a href="#!">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+
+    <!--Card content-->
+    <div class="grid card-body">
+      <!--Title-->
+      <h4 class="card-title">
+        <span class="badge text-bg-primary"> {{ produit.nom }}</span>
+      </h4>
+      <!--Text-->
+      <p class="card-text">
+        {{ produit.description }}
+      </p>
+      <div class="row row-cols-auto">
+        <div class="col">Quantity:</div>
+        <div class="col">
+          <select
+            #qts
+            (change)="onSelected(qts.value)"
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm example">
+            <option *ngFor="let op of [1, 2, 3, 4]" value="{{ op }}">
+              {{ op }}
+            </option>
+          </select>
+        </div>
+        <div class="col-2">
+          <span class="badge rounded-pill text-bg-warning"
+            >Yous choosed: {{ quantity }}</span
+          >
+        </div>
+          
+        
+      </div>
+      <button
+      type="button"
+      (click)="addCommand(produit.idproduit)"
+      class="offset-md-8 btn btn-outline-danger btn-sm mt-3">
+      Commander
+    </button>
+      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+    </div>
+  </div>
+  <!-- Card -->
+</div>

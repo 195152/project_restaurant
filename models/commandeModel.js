@@ -8,8 +8,6 @@ const Commande = db.define('commande', {
         allowNull: false,
         primaryKey: true
     },
-    
-    
     createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
